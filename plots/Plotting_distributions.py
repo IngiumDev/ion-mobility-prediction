@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
+import shutil
 
 # load data
 tenzer_waters = pd.read_csv("/Users/mad_hatter/Desktop/Bioinfo/PBL/data/tenzer_waters.csv")
@@ -25,12 +25,20 @@ subset_values = [40, 70, 100, 130, 160]
 subset_positions = [ion_mobility_length_counts.index.get_loc(value) for value in subset_values]
 plt.xticks(subset_positions, subset_values, rotation=0)  # Set the subset values and rotate them horizontally
 plt.tight_layout()
-plt.show()
+#plt.show()
+
+# Save the plot as a PDF file and download
+plt.savefig('Ion mobility length.pdf')
+source_file = 'Ion mobility length.pdf'
+destination_file = "/Users/mad_hatter/Desktop/Bioinfo/PBL/data/plots/Ion mobility length.pdf"
+shutil.copy2(source_file, destination_file)
+
 
 # summary statistics
 print("Summary Statistics for Ion mobility length HERE")
 summary_IMI = mann_brukers["Ion mobility length"].describe().round(2)
 print(summary_IMI, "\n")
+
 
 # ion mobility index - is the same as drift time!
 ion_mobility_index_counts = mann_brukers["Ion mobility index"].value_counts()
@@ -44,7 +52,13 @@ subset_values = [54, 303, 486, 612, 882]
 subset_positions = [ion_mobility_index_counts.index.get_loc(value) for value in subset_values]
 plt.xticks(subset_positions, subset_values, rotation=0)  # Set the subset values and rotate them horizontally
 plt.tight_layout()
-plt.show()
+#plt.show()
+
+# Save the plot as a PDF file
+plt.savefig('Ion mobility index.pdf')
+source_file = 'Ion mobility index.pdf'
+destination_file = "/Users/mad_hatter/Desktop/Bioinfo/PBL/data/plots/Ion mobility index.pdf"
+shutil.copy2(source_file, destination_file)
 
 # summary statistics
 print("Summary Statistics for Ion mobility index HERE")
@@ -57,7 +71,14 @@ print(summary_IMI, "\n")
 plt.figure(figsize=(8, 6))
 mann_brukers.boxplot(column="CCS")
 plt.title("CCS distribution boxplot")
-plt.show()
+#plt.show()
+
+# Save the plot as a PDF file and download
+plt.savefig('CCS.pdf')
+source_file = 'CCS.pdf'
+destination_file = "/Users/mad_hatter/Desktop/Bioinfo/PBL/data/plots/CCS.pdf"
+shutil.copy2(source_file, destination_file)
+
 
 # summary statistics
 print("Summary Statistics for CCS HERE")
@@ -71,7 +92,13 @@ print(summary_IMI, "\n")
 plt.figure(figsize=(8, 6))
 mann_brukers.boxplot(column="CCS length")
 plt.title("CCS length distribution boxplot")
-plt.show()
+#plt.show()
+
+# Save the plot as a PDF file and download
+plt.savefig('CCS length.pdf')
+source_file = 'CCS length.pdf'
+destination_file = "/Users/mad_hatter/Desktop/Bioinfo/PBL/data/plots/CCS length.pdf"
+shutil.copy2(source_file, destination_file)
 
 # summary statistics
 print("Summary Statistics for CCS length HERE")
