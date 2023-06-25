@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import shutil
 
 # load data
-tenzer_waters = pd.read_csv("/Users/mad_hatter/Desktop/Bioinfo/PBL/data/tenzer_waters.csv")
 mb_path = "/Users/mad_hatter/Desktop/Bioinfo/PBL/data/mann_bruker_simplified.txt"
 mann_brukers = pd.read_csv(mb_path, sep=",")
 
