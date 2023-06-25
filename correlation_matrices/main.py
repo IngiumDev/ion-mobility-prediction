@@ -29,6 +29,6 @@ if __name__ == '__main__':
     # tenzer waters
     tw_raw_data = pd.read_csv(sys.argv[2])
     tw_df = pd.DataFrame(tw_raw_data)
-    not_used = ["run", "sequence", "type", "modification", "rt", "LiftOffRT", "TouchDownRT"]
-    #gen_correlation_matrix(tw_df, not_used, "tenzer_waters")
+    not_used = ["run", "sequence", "type", "modification", "LiftOffRT", "TouchDownRT"]
+    gen_correlation_matrix(tw_df, not_used, "tenzer_waters")
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

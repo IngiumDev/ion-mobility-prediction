@@ -20,12 +20,13 @@ def duplicates_mb():
     print(mb_df_count.quantile(0.25))
 
     plt.savefig("mb_count_same_seq")
+    plt.close()
 
     std_mb_df = mb_df.transform("std")
     std_mb_df = std_mb_df.rename(columns={"CCS": "STD of CCS Values with same Sequence"})
     std_mb_df.boxplot()
     IQR_STD = std_mb_df.quantile(0.75) - std_mb_df.quantile(0.25)
-    plt.savefig("tw_std_same_seq")
+    plt.savefig("mb_std_same_seq")
 
 
 def duplicates_tw():
