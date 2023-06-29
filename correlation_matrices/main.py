@@ -1,13 +1,12 @@
 import sys
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sn
-import matplotlib.pyplot as plt
-
 
 def gen_correlation_matrix(df, unusable_columns, filename):
     simplified_data = df.drop(unusable_columns, axis=1)
     corr_matrix = simplified_data.corr()
-    ax = sn.heatmap(corr_matrix, annot=True)
+    ax = sn.heatmap(corr_matrix, annot=True, fmt=".2f", cmap="crest", linewidths=.5)
     ax.figure.tight_layout()
     plt.savefig(filename)
     plt.close()
@@ -30,6 +29,6 @@ if __name__ == '__main__':
     # tenzer waters
     tw_raw_data = pd.read_csv(sys.argv[2])
     tw_df = pd.DataFrame(tw_raw_data)
-    not_used = ["run", "sequence", "type", "modification", "rt", "LiftOffRT"]
+    not_used = ["run", "sequence", "type", "modification", "LiftOffRT", "TouchDownRT"]
     gen_correlation_matrix(tw_df, not_used, "tenzer_waters")
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
