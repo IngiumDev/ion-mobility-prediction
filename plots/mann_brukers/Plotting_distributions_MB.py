@@ -32,7 +32,6 @@ subset_values = [40, 70, 100, 130, 160]
 subset_positions = [ion_mobility_length_counts.index.get_loc(value) for value in subset_values]
 plt.xticks(subset_positions, subset_values, rotation=0)  # Set the subset values and rotate them horizontally
 plt.tight_layout()
-
 save_n_download("Ion mobility length")
 
 # summary statistics

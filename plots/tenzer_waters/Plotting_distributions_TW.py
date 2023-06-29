@@ -18,7 +18,7 @@ def save_n_download(pdf_name):
 # Drift time histogram
 dt_counts = tenzer_waters["dt"].value_counts()
 plt.figure(figsize=(8, 6))
-n, bins, patches = plt.hist(dt_counts.index, bins=20, align='mid')
+n, bins, patches = plt.hist(dt_counts.index, bins=200, align='mid')
 
 plt.xlabel("drift time")
 plt.ylabel("Count")
@@ -39,10 +39,10 @@ print(summary_IMI, "\n")
 # Mass histogram
 mass_counts = tenzer_waters["mass"].value_counts()
 plt.figure(figsize=(8, 6))
-n, bins, patches = plt.hist(mass_counts.index, bins=20, align='mid')
+n, bins, patches = plt.hist(mass_counts.index, bins=200, align='mid')
 # Set x-axis tick positions and labels
 plt.xticks(bins)
-plt.gca().set_xticks(bins[::2])  # Set tick positions to every second bin
+plt.gca().set_xticks(bins[::20])  # Set tick positions to every second bin
 
 plt.xlabel("mass")
 plt.ylabel("Count")
@@ -74,7 +74,7 @@ print(summary_IMI, "\n")
 # Score histogram
 score_counts = tenzer_waters["score"].value_counts()
 plt.figure(figsize=(8, 6))
-n, bins, patches = plt.hist(score_counts.index, bins=20, align='mid')
+n, bins, patches = plt.hist(score_counts.index, bins=200, align='mid')
 
 plt.xlabel("Score")
 plt.ylabel("Count")
