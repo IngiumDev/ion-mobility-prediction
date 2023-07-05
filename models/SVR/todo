@@ -1,0 +1,3 @@
+
+finish implementing grid search and use hyperparameters to train final SVR model
+Otherwise experiment with different parameter tunings for SVR and Linear SVR
