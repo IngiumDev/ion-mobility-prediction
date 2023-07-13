@@ -6,3 +6,5 @@ data/mann_bruker.txt
 data/mann_bruker_simplified.csv
 data/mass_table.txt
 data/tenzer_waters.csv
+
+*.pkl
