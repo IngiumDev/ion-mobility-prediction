@@ -22,12 +22,15 @@ def join_datasets(prediction):
         data = pd.DataFrame(pd.read_csv(prediction_dict[prediction]["data"]))
         data = data.rename(columns={"mass": "mass_mean"})
         data = data[["charge", "mass_mean", "dt", "sequence"]]
+        data = data.groupby(['sequence', 'charge']).agg(
+            {'mass_mean': 'median', 'dt': 'median'}).reset_index()
     else:
         data = pd.DataFrame(pd.read_csv(prediction_dict[prediction]["data"], sep="\t"))
         data = data.rename(columns={"Mass": "mass_mean", "Charge": "charge", "Sequence": "sequence"})
         data = data[["charge", "mass_mean", "Ion mobility index", "CCS", "sequence"]]
+        data = data.groupby(['sequence', 'charge']).agg(
+            {'mass_mean': 'median', 'CCS': 'median', 'Ion mobility index': 'median'}).reset_index()
 
-    data = data.drop_duplicates(subset=["charge", "sequence"], keep="last")
     inner_join = pd.DataFrame(pd.read_csv('../data/merged_data.csv'))
     inner_join = inner_join.drop_duplicates(subset=["charge", "sequence"], keep="last")
     right_outer = inner_join.merge(data, how="right", indicator=True)
