@@ -45,9 +45,18 @@ def join_dataset(mb, tw,ccs_sd, rfccsmodel, rfdtmodel):
 
     # Prepare the features for the rows with missing CCS values
     X_ccs = data.loc[missing_ccs, ['Charge', 'Mass', 'dt']]
-
+    # Temporarily rename Charge to charge, Mass to mass_mean
+    X_ccs.columns = ['charge', 'mass_mean', 'dt']
     # Predict the missing CCS values
     predicted_ccs = ccs_model.predict(X_ccs)
+    # Reverse the z-score normalization
+    std_and_mean = pd.read_csv(ccs_sd)
+    ccs_mean = std_and_mean["ccs_mean"][0]
+    ccs_std = std_and_mean["ccs_std"][0]
+    predicted_ccs = predicted_ccs * ccs_std + ccs_mean
+
+    # Rename the columns back to their original names
+    X_ccs.columns = ['Charge', 'Mass', 'dt']
 
     # Fill in the missing CCS values in the dataframe
     data.loc[missing_ccs, 'CCS'] = predicted_ccs
@@ -55,9 +64,15 @@ def join_dataset(mb, tw,ccs_sd, rfccsmodel, rfdtmodel):
     # Repeat the process for the 'dt' column
     missing_dt = data['dt'].isna()
     X_dt = data.loc[missing_dt, ['Charge', 'Mass', 'Ion mobility index', 'CCS']]
+    # Temporarily rename Charge to charge, Mass to mass_mean
+    X_dt.columns = ['charge', 'mass_mean', 'Ion mobility index', 'CCS']
     predicted_dt = dt_model.predict(X_dt)
+    # Rename the columns back to their original names
+    X_dt.columns = ['Charge', 'Mass', 'Ion mobility index', 'CCS']
     data.loc[missing_dt, 'dt'] = predicted_dt
 
+    # Save the dataframes to csv
+    data.to_csv('joined_dataset.csv', index=False)
 
 if __name__ == '__main__':
-    join_dataset('../data/mann_bruker.txt', '../data/tenzer_waters.csv', 0.1, 0.1, 0.1)
+    join_dataset('../data/mann_bruker.txt', '../data/tenzer_waters.csv', '../dataset_joining/ccs_mean_std.csv', '../dataset_joining/correlation_curves/predict_ccs.pkl', '../dataset_joining/correlation_curves/predict_dt.pkl')
