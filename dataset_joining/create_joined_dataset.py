@@ -10,7 +10,7 @@ prediction_dict = {"ccs_z": {"model": "../dataset_joining/correlation_curves/pre
                           "data": "../data/mann_bruker.txt",
                           "inputs": ["charge", "mass_mean", "Ion mobility index", "CCS"]}}
 
-#ccs, dt, mass, im index, seq, charge
+
 def join_datasets(prediction):
     if str(prediction).lower() not in allowed_predictions:
         raise ValueError(f'Can only predict CCS_Z or DT. {str(prediction)} can not be predicted')
@@ -40,12 +40,19 @@ def join_datasets(prediction):
         ccs_mean = std_and_mean["ccs_mean"][0]
         ccs_std = std_and_mean["ccs_std"][0]
         right_outer["CCS"] = right_outer[prediction] * ccs_std + ccs_mean
+        right_outer = right_outer.drop("ccs_z", axis=1)
 
     full_data = right_outer.merge(inner_join, how="outer")
     full_data = full_data.drop("_merge", axis=1)
-    full_data.to_csv("full.csv", index=False)
+    return full_data
 
 
 if __name__ == "__main__":
     # use ccs_z or dt as parameter
-    join_datasets("ccs_z")
+    tw_full = join_datasets("ccs_z")
+    mb_full = join_datasets("dt")
+
+    whole_data = tw_full.merge(mb_full, how="outer")
+    whole_data = whole_data.drop(["rt", "Unnamed: 0", "Length"], axis=1)
+    whole_data = whole_data.rename(columns={"mass_mean": "mass", "CCS": "ccs", "Ion mobility index": "ion mobility index"})
+    whole_data.to_csv("whole_data.csv", index=False)
