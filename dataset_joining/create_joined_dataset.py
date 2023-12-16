@@ -58,4 +58,5 @@ if __name__ == "__main__":
     whole_data = tw_full.merge(mb_full, how="outer")
     whole_data = whole_data.drop(["rt", "Unnamed: 0", "Length"], axis=1)
     whole_data = whole_data.rename(columns={"mass_mean": "mass", "CCS": "ccs", "Ion mobility index": "ion mobility index"})
-    whole_data.to_csv("whole_data.csv", index=False)
+    print(whole_data)
+    #whole_data.to_csv("whole_data.csv", index=False)
