@@ -8,14 +8,15 @@ import matplotlib.patches as patch
 
 # for later download
 def save_n_download(pdf_name):
-    plt.savefig(pdf_name + ".pdf")
-    source_file = pdf_name + ".pdf"
-    destination_file = "/Users/mad_hatter/Desktop/Bioinfo/PBL/data/plots/" + pdf_name + ".pdf"
-    shutil.copy2(source_file, destination_file)
+    plt.savefig(pdf_name + ".png")
+    plt.close()
+    #source_file = pdf_name + ".pdf"
+    #destination_file = "/Users/mad_hatter/Desktop/Bioinfo/PBL/data/plots/" + pdf_name + ".pdf"
+    #shutil.copy2(source_file, destination_file)
 
 
 # load data
-mb_path = "/Users/mad_hatter/Desktop/Bioinfo/PBL/data/mann_bruker_simplified.txt"
+mb_path = "../../../data/mann_bruker_simplified.csv"
 mann_brukers = pd.read_csv(mb_path, sep=",")
 print(mann_brukers.iloc[1], "\n")
 
